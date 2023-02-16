@@ -1,0 +1,93 @@
+openapi: "3.0.0"
+paths:
+  /v1/auth/logout:
+    get:
+      operationId: "AuthController_logout"
+      summary: ""
+      description: "Logs out user and deactivates it in the system."
+      parameters: []
+      responses:
+        200:
+          description: ""
+      tags:
+        - "Authorization"
+  /v1/auth/token:
+    post:
+      operationId: "AuthController_authorizeUser"
+      summary: ""
+      description: "Should be called by API consumers (Web or Mobile App) to exchange Google OAuth token for JWT token,\n    assuming that Google OAuth flow has already happened in browser.\n    This is a part of authorization flow for any FE application that want to use this API."
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizeUserRequestBody"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizeUserResponse"
+      tags:
+        - "Authorization"
+  /v1/auth/link:
+    get:
+      operationId: "AuthController_redirectToGoogleAuth"
+      summary: ""
+      description: "Returns redirect link to Google OAuth authorization."
+      parameters: []
+      responses:
+        200:
+          description: ""
+      tags:
+        - "Authorization"
+info:
+  title: "Nodejs Starter API"
+  description: ""
+  version: "1.0"
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    Authorization:
+      scheme: "bearer"
+      bearerFormat: "JWT"
+      type: "http"
+  schemas:
+    AuthorizeUserRequestBody:
+      type: "object"
+      properties:
+        accessToken:
+          type: "string"
+      required:
+        - "accessToken"
+    AuthorizeUserResponseUser:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        givenName:
+          type: "string"
+        familyName:
+          type: "string"
+          nullable: true
+        picture:
+          type: "string"
+      required:
+        - "id"
+        - "givenName"
+        - "familyName"
+        - "picture"
+    AuthorizeUserResponse:
+      type: "object"
+      properties:
+        accessToken:
+          type: "string"
+        user:
+          $ref: "#/components/schemas/AuthorizeUserResponseUser"
+      required:
+        - "accessToken"
+        - "user"

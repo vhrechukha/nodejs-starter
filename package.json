@@ -5,8 +5,8 @@
   "author": "Viktoriia Hrechukha<viktoriia.hrechukha@gmail.com>",
   "private": true,
   "engines": {
-    "node": "18.12.1",
-    "npm": "8.19.2"
+    "node": ">=18.12.1",
+    "npm": ">=8.19.2"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -50,6 +50,7 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.0",
     "husky": "^7.0.4",
+    "json-to-pretty-yaml": "^1.2.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "moment-timezone": "^0.5.34",

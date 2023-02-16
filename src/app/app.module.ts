@@ -3,8 +3,6 @@ import 'reflect-metadata';
 import type { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { EventEmitterModule } from '@nestjs/event-emitter';
-import { ScheduleModule } from '@nestjs/schedule';
 import { DataSource } from 'typeorm';
 
 import { CommonModule } from '../common/common.module';
@@ -19,7 +17,7 @@ import { UsersModule } from '../resources/users/users.module';
 import pgConfig from './../config/pg.config';
 import { RequestLoggerMiddleware } from './middleware/request-logger.middleware';
 
-enum Environment {
+export enum Environment {
   TEST = 'test',
   LOCAL = 'local',
   DEVELOPMENT = 'dev',
@@ -31,8 +29,6 @@ const ENV = process.env.ENV as Environment;
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
-    EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
       envFilePath: `${process.env.PWD}/.env.${ENV}`,
       isGlobal: true,
