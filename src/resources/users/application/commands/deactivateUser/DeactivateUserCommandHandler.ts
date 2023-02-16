@@ -27,7 +27,7 @@ export class DeactivateUserCommandHandler
 
     user.isActive = false;
 
-    await this._dbContext.userRepository.update(user);
+    await this._dbContext.userRepository.updateUser(user);
 
     const updatedUser = (await this._dbContext.userRepository.findById(user.id)) as UserDto;
 

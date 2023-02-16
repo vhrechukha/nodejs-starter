@@ -5,13 +5,16 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
+import { DataSource } from 'typeorm';
 
 import { CommonModule } from '../common/common.module';
 import { BaseType } from '../common/diTokens';
 import { GlobalDBContext } from '../common/infrastructure/persistance/GlobalDBContext';
+import { TypeOrmExModule } from '../common/typeorm-ex.module';
 import appConfig from '../config/app.config';
 import authConfig from '../config/auth.config';
 import { InfrastructureModule } from '../infrastructure/infrastructure.module';
+import { UserRepository } from '../resources/users/infrastructure/persistence/UserRepository';
 import { UsersModule } from '../resources/users/users.module';
 import pgConfig from './../config/pg.config';
 import { RequestLoggerMiddleware } from './middleware/request-logger.middleware';
@@ -39,6 +42,7 @@ const ENV = process.env.ENV as Environment;
     CommonModule,
     InfrastructureModule,
     UsersModule,
+    TypeOrmExModule.forCustomRepository([UserRepository, DataSource]),
   ],
   controllers: [],
   exports: [],

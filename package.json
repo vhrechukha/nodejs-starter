@@ -5,8 +5,8 @@
   "author": "Viktoriia Hrechukha<viktoriia.hrechukha@gmail.com>",
   "private": true,
   "engines": {
-    "node": "16.10",
-    "npm": "8.3.1"
+    "node": "18.12.1",
+    "npm": "8.19.2"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -44,7 +44,7 @@
     "@nestjs/platform-socket.io": "^8.4.4",
     "@nestjs/schedule": "^2.0.1",
     "@nestjs/swagger": "^5.2.1",
-    "@nestjs/typeorm": "<=8.0.3",
+    "@nestjs/typeorm": "^9.0.0-next.2",
     "@nestjs/websockets": "^8.4.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -60,7 +60,7 @@
     "rxjs": "^7.5.5",
     "socket.io": "^4.5.0",
     "swagger-ui-express": "^4.3.0",
-    "typeorm": "<=0.2.45"
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

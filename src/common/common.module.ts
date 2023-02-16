@@ -1,8 +1,11 @@
 import { Global, Module } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 
+import { UserRepository } from '../resources/users/infrastructure/persistence/UserRepository';
 import { BaseType } from './diTokens';
 import { NestIdentityContext } from './infrastructure/identity/NestIdentityContext';
 import { GlobalDBContext } from './infrastructure/persistance/GlobalDBContext';
+import { TypeOrmExModule } from './typeorm-ex.module';
 
 @Global()
 @Module({
@@ -26,5 +29,6 @@ import { GlobalDBContext } from './infrastructure/persistance/GlobalDBContext';
       useClass: NestIdentityContext,
     },
   ],
+  imports: [TypeOrmExModule.forCustomRepository([UserRepository, DataSource])],
 })
 export class CommonModule {}

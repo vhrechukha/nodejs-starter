@@ -32,6 +32,7 @@ module.exports = {
       { selector: 'classProperty', modifiers: ['protected'], format: ['camelCase'], leadingUnderscore: 'allow' },
       { selector: 'objectLiteralProperty', format: ['camelCase'] },
       { selector: 'parameterProperty', format: ['camelCase'] },
+      { selector: 'parameterProperty', modifiers: ['readonly'], format: ['StrictPascalCase'], leadingUnderscore: 'allow' },
       { selector: 'classMethod', format: ['camelCase'] },
       { selector: 'objectLiteralMethod', format: ['camelCase'] },
       { selector: 'typeMethod', format: ['camelCase'] },
@@ -82,6 +83,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-function': 'warn',
     'prettier/prettier': ['error'],
-    'max-len': 'off',
+    'max-len': 'off'
   },
 };

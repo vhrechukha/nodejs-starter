@@ -22,9 +22,6 @@ const pgConfig = (): { pg: PostgresConnectionOptions } => {
       synchronize: process.env.PG_SYNCHRONIZE === EnvBooleans.TRUE,
       migrationsRun: true,
       logging: ['error', 'migration'],
-      cli: {
-        migrationsDir: 'src/infrastructure/db/migrations',
-      },
     },
   };
 };

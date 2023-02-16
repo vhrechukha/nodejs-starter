@@ -31,7 +31,7 @@ export class AuthorizeUserCommandHandler
 
     const identity = await this.authService.authenticate(oauthToken);
 
-    let user = await this._dbContext.userRepository.findByExternalId(identity.externalId);
+    let user = await this._dbContext.userRepository.findById(identity?.externalId);
 
     if (!user) {
       const userToCreate: UserCreateDto = {
@@ -43,7 +43,7 @@ export class AuthorizeUserCommandHandler
         familyName: identity.familyName,
       };
 
-      user = await this._dbContext.userRepository.create(userToCreate);
+      user = await this._dbContext.userRepository.createUser(userToCreate);
     } else {
       const userToUpdate: UserUpdateDto = {
         id: user.id,
@@ -55,11 +55,12 @@ export class AuthorizeUserCommandHandler
         familyName: getOrDefault(identity.familyName, user.familyName),
       };
 
-      await this._dbContext.userRepository.update(userToUpdate);
+      await this._dbContext.userRepository.updateUser(userToUpdate);
 
       user = (await this._dbContext.userRepository.findById(user.id)) as UserDto;
     }
 
+    // token needs to be expired after the specified time
     const expirationDatetime = moment().tz('America/New_York');
 
     if (expirationDatetime.get('hours') >= 4) {
