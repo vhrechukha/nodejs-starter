@@ -1,6 +1,8 @@
-export enum BaseType {
+export enum BaseToken {
   GLOBAL_DB_CONTEXT = 'GLOBAL_DB_CONTEXT',
+  GLOBAL_READ_DB_CONTEXT = 'GLOBAL_READ_DB_CONTEXT',
   IDENTITY_CONTEXT = 'IDENTITY_CONTEXT',
+  DATA_SOURCE = 'DATA_SOURCE',
 }
 
 export enum QueryHandlerType {

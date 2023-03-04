@@ -5,12 +5,12 @@ import type { IncomingMessage } from 'http';
 import type { JwtPayload } from 'jsonwebtoken';
 
 import { IGlobalDBContext } from '../../../application/IGlobalDBContext';
-import { BaseType } from '../../../diTokens';
+import { BaseToken } from '../../../diTokens';
 import type { RequestExtended } from '../RequestExtended';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(@Inject(BaseType.GLOBAL_DB_CONTEXT) private dbContext: IGlobalDBContext) {}
+  constructor(@Inject(BaseToken.GLOBAL_DB_CONTEXT) private dbContext: IGlobalDBContext) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<RequestExtended>();

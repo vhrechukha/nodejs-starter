@@ -5,7 +5,7 @@ import * as moment from 'moment-timezone';
 
 import { AbstractCommandHandler } from '../../../../../common/application/AbstractCommandHandler';
 import { IGlobalDBContext } from '../../../../../common/application/IGlobalDBContext';
-import { BaseType, ServiceType } from '../../../../../common/diTokens';
+import { BaseToken, ServiceType } from '../../../../../common/diTokens';
 import { getOrDefault } from '../../../../../common/utils/getOrDefault';
 import type { UserCreateDto } from '../../dataStructures/UserCreateDto';
 import type { UserDto } from '../../dataStructures/UserDto';
@@ -20,7 +20,7 @@ export class AuthorizeUserCommandHandler
   extends AbstractCommandHandler<AuthorizeUserCommandInput, AuthorizeUserCommandResult>
   implements IAuthorizeUserCommandHandler
 {
-  @Inject(BaseType.GLOBAL_DB_CONTEXT) protected _dbContext: IGlobalDBContext;
+  @Inject(BaseToken.GLOBAL_DB_CONTEXT) protected _dbContext: IGlobalDBContext;
 
   constructor(@Inject(ServiceType.AUTH_SERVICE) private authService: IAuthService) {
     super();
@@ -31,7 +31,7 @@ export class AuthorizeUserCommandHandler
 
     const identity = await this.authService.authenticate(oauthToken);
 
-    let user = await this._dbContext.userRepository.findById(identity?.externalId);
+    let user = await this._dbContext.userRepository.findByExternalId(identity?.externalId);
 
     if (!user) {
       const userToCreate: UserCreateDto = {

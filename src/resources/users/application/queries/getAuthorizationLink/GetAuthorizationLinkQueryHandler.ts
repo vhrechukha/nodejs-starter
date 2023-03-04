@@ -2,7 +2,7 @@ import { Inject, Injectable, Scope } from '@nestjs/common';
 
 import { AbstractQueryHandler } from '../../../../../common/application/AbstractQueryHandler';
 import { IGlobalDBContext } from '../../../../../common/application/IGlobalDBContext';
-import { BaseType } from '../../../../../common/diTokens';
+import { BaseToken } from '../../../../../common/diTokens';
 import type { GetAuthorizationLinkQueryResult } from './GetAuthorizationLinkQueryResult';
 import type { IGetAuthorizationLinkQueryHandler } from './IGetAuthorizationLinkQueryHandler';
 
@@ -11,7 +11,7 @@ export class GetAuthorizationLinkQueryHandler
   extends AbstractQueryHandler<void, GetAuthorizationLinkQueryResult>
   implements IGetAuthorizationLinkQueryHandler
 {
-  @Inject(BaseType.GLOBAL_DB_CONTEXT) protected _dbContext: IGlobalDBContext;
+  @Inject(BaseToken.GLOBAL_DB_CONTEXT) protected _dbContext: IGlobalDBContext;
 
   protected async implementation(): Promise<GetAuthorizationLinkQueryResult> {
     const SCOPES = 'email profile';

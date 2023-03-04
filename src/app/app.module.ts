@@ -3,18 +3,13 @@ import 'reflect-metadata';
 import type { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { DataSource } from 'typeorm';
 
-import { CommonModule } from '../common/common.module';
-import { BaseType } from '../common/diTokens';
-import { GlobalDBContext } from '../common/infrastructure/persistance/GlobalDBContext';
-import { TypeOrmExModule } from '../common/typeorm-ex.module';
+import { AppConfigModule } from '../common/infrastructure/configuration/AppConfigModule';
+import { DatabaseModule } from '../common/infrastructure/persistance/DatabaseModule';
 import appConfig from '../config/app.config';
 import authConfig from '../config/auth.config';
-import { InfrastructureModule } from '../infrastructure/infrastructure.module';
-import { UserRepository } from '../resources/users/infrastructure/persistence/UserRepository';
+import pgConfig from '../config/pg.config';
 import { UsersModule } from '../resources/users/users.module';
-import pgConfig from './../config/pg.config';
 import { RequestLoggerMiddleware } from './middleware/request-logger.middleware';
 
 export enum Environment {
@@ -35,10 +30,10 @@ const ENV = process.env.ENV as Environment;
       load: [appConfig, authConfig, pgConfig],
       expandVariables: true,
     }),
-    CommonModule,
-    InfrastructureModule,
+    // CommonModule,
     UsersModule,
-    TypeOrmExModule.forCustomRepository([UserRepository, DataSource]),
+    DatabaseModule,
+    AppConfigModule,
   ],
   controllers: [],
   exports: [],
@@ -48,10 +43,21 @@ const ENV = process.env.ENV as Environment;
   // Importing such module as a global one detaches it from Dep tree
   // and creates new seedling.
   providers: [
-    {
-      provide: BaseType.GLOBAL_DB_CONTEXT,
-      useClass: GlobalDBContext,
-    },
+    // CommonModule,
+    DatabaseModule,
+    AppConfigModule,
+    // {
+    //   provide: BaseToken.DATA_SOURCE,
+    //   useClass: DataSource,
+    // },
+    // {
+    //   provide: BaseToken.GLOBAL_DB_CONTEXT,
+    //   useClass: GlobalDBContext,
+    // },
+    // {
+    //   provide: BaseToken.GLOBAL_READ_DB_CONTEXT,
+    //   useClass: GlobalReadDBContext,
+    // },
   ],
 })
 export class AppModule implements NestModule {
